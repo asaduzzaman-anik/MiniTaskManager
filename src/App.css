@@ -1,0 +1,364 @@
+:root {
+  --font: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --radius: 10px;
+  --transition: 0.2s ease;
+}
+
+.app {
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  transition: background var(--transition), color var(--transition);
+}
+
+.app.light {
+  --bg: #eef2f6;
+  --surface: #ffffff;
+  --text: #1a2332;
+  --muted: #5a6a7d;
+  --border: #d5dde8;
+  --accent: #0f6e6e;
+  --accent-hover: #0c5858;
+  --nav-bg: #ffffff;
+  --task-hover: #f4f7fa;
+  --completed: #6b7c8f;
+  --error: #b42318;
+  --shadow: 0 1px 3px rgba(26, 35, 50, 0.08);
+}
+
+.app.dark {
+  --bg: #12181f;
+  --surface: #1c2430;
+  --text: #e8eef5;
+  --muted: #9aa8b8;
+  --border: #2d3848;
+  --accent: #3dbeb0;
+  --accent-hover: #55c9bc;
+  --nav-bg: #1c2430;
+  --task-hover: #243041;
+  --completed: #8a9aab;
+  --error: #f97066;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.navbar-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.nav-link {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background var(--transition), color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--task-hover);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.theme-toggle {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+/* Main layout */
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 3rem;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page h1 {
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.task-count {
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Form */
+.task-form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.task-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.task-form input::placeholder {
+  color: var(--muted);
+}
+
+.task-form input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.task-form button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition);
+}
+
+.app.dark .task-form button {
+  color: #0a1a1a;
+}
+
+.task-form button:hover {
+  background: var(--accent-hover);
+}
+
+/* Status */
+.status {
+  padding: 1rem;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+/* Task list */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.task-item:hover {
+  background: var(--task-hover);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.checkbox {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: transparent;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.task-item.completed .checkbox {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.app.dark .task-item.completed .checkbox {
+  color: #0a1a1a;
+}
+
+.task-title {
+  flex: 1;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: var(--completed);
+}
+
+.empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* About */
+.about-page p {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  max-width: 38rem;
+}
+
+.about-list {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.about-list li {
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.about-list li::before {
+  content: '– ';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .navbar-inner {
+    padding: 0.75rem 1rem;
+  }
+
+  .main {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+}
+
+/* Phone */
+@media (max-width: 480px) {
+  .navbar-inner {
+    gap: 0.65rem;
+  }
+
+  .brand {
+    width: 100%;
+    order: -1;
+  }
+
+  .nav-links {
+    margin-left: 0;
+    flex: 1;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .task-form button {
+    width: 100%;
+  }
+
+  .page h1 {
+    font-size: 1.5rem;
+  }
+}
